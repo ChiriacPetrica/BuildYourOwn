@@ -4,8 +4,6 @@ import PageNotFound from "./pages/PageNotFound";
 import AppLayout from "./ui/AppLayout";
 import Support from "./pages/Support";
 import About from "./pages/About";
-import TestPR from "./pages/TestPR";
-import Branch from "./pages/Branch";
 
 const App = () => {
   return (
