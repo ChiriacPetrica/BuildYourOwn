@@ -5,6 +5,7 @@ import AppLayout from "./ui/AppLayout";
 import Support from "./pages/Support";
 import About from "./pages/About";
 import TestPR from "./pages/TestPR";
+import Branch from "./pages/Branch";
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
             <Route path="/support" element={<Support />} />
             <Route path="/about" element={<About />} />
             <Route path="/test" element={<TestPR />} />
+            <Route path="/branch" element={<Branch />} />
           </Route>
           <Route path="*" element={<PageNotFound />} />
         </Routes>

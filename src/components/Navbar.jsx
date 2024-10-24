@@ -36,6 +36,14 @@ const Navbar = () => {
               TestPR
             </Link>
           </li>
+          <li>
+            <Link
+              to="/branch"
+              className="text-white transition duration-300 ease-in-out hover:text-blue-500"
+            >
+              Test PR cu branch
+            </Link>
+          </li>
         </ul>
       </div>
     </nav>
