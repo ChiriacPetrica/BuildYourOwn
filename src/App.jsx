@@ -4,6 +4,7 @@ import PageNotFound from "./pages/PageNotFound";
 import AppLayout from "./ui/AppLayout";
 import Support from "./pages/Support";
 import About from "./pages/About";
+import TestPR from "./pages/TestPR";
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
             <Route path="/dashboard" element={<div>Dashboard</div>} />
             <Route path="/support" element={<Support />} />
             <Route path="/about" element={<About />} />
+            <Route path="/test" element={<TestPR />} />
           </Route>
           <Route path="*" element={<PageNotFound />} />
         </Routes>

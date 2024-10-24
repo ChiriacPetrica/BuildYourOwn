@@ -28,6 +28,14 @@ const Navbar = () => {
               About Us
             </Link>
           </li>
+          <li>
+            <Link
+              to="/test"
+              className="text-white transition duration-300 ease-in-out hover:text-blue-500"
+            >
+              TestPR
+            </Link>
+          </li>
         </ul>
       </div>
     </nav>
