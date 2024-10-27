@@ -1,6 +1,6 @@
 const Support = () => {
   return (
-    <div className="p-4 bg-gray-200">
+    <div className="flex-1 bg-gray-200 p-4">
       <h1 className="text-3xl font-bold">Support</h1>
       <p className="mt-4">
         If you need help with your order, please contact us at

@@ -1,48 +1,68 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+
+import { useLocation } from "react-router-dom";
+import Logo from "../assets/logo.png";
 
 const Navbar = () => {
+  const location = useLocation();
+
   return (
-    <nav className="flex justify-between bg-gray-800 p-4 transition duration-300 ease-in-out">
-      <div>
-        <Link to="/dashboard">
-          <p className="h-8 text-xl transition duration-300 ease-in-out hover:scale-110">
-            🚨
-          </p>
-        </Link>
-      </div>
-      <div>
-        <ul className="flex gap-4">
+    <nav className="bg-gray-800 p-4 transition duration-300 ease-in-out">
+      <div className="mx-auto flex w-9/12 items-center justify-between">
+        <div>
+          <NavLink to="/main">
+            <img
+              src={Logo}
+              alt="Build Your Own Logo"
+              className="h-12 w-12 text-xl transition duration-300 ease-in-out"
+            />
+          </NavLink>
+        </div>
+
+        <div className="flex items-center justify-center">
+          <h1 className="text-2xl font-bold text-white">
+            {location.pathname === "/main"
+              ? "Build Your Own"
+              : location.pathname
+                  .slice(1)
+                  .replace(/(^\w{1})|(\s+\w{1})/g, (letter) =>
+                    letter.toUpperCase(),
+                  )}
+          </h1>
+        </div>
+
+        <ul className="flex items-center gap-4">
           <li>
-            <Link
+            <NavLink
               to="/support"
               className="text-white transition duration-300 ease-in-out hover:text-blue-500"
             >
               Support
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link
+            <NavLink
               to="/about"
               className="text-white transition duration-300 ease-in-out hover:text-blue-500"
             >
               About Us
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link
-              to="/test"
+            <NavLink
+              to="/newsletter"
               className="text-white transition duration-300 ease-in-out hover:text-blue-500"
             >
-              TestPR
-            </Link>
+              Newsletter
+            </NavLink>
           </li>
           <li>
-            <Link
-              to="/branch"
+            <NavLink
+              to="/contact"
               className="text-white transition duration-300 ease-in-out hover:text-blue-500"
             >
-              Test PR cu branch
-            </Link>
+              Contact
+            </NavLink>
           </li>
         </ul>
       </div>
