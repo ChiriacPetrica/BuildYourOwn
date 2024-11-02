@@ -1,22 +1,17 @@
-import { NavLink } from "react-router-dom";
-
-import { useLocation } from "react-router-dom";
 import Logo from "../assets/logo.png";
 
 const Navbar = () => {
-  const location = useLocation();
-
   return (
-    <nav className="bg-gray-800 p-4 transition duration-300 ease-in-out">
+    <nav className="p-4 transition duration-300 ease-in-out">
       <div className="mx-auto flex w-9/12 items-center justify-between">
         <div>
-          <NavLink to="/main">
+          <a to="/main">
             <img
               src={Logo}
               alt="Build Your Own Logo"
               className="h-12 w-12 text-xl transition duration-300 ease-in-out"
             />
-          </NavLink>
+          </a>
         </div>
 
         <div className="flex items-center justify-center">
@@ -33,36 +28,36 @@ const Navbar = () => {
 
         <ul className="flex items-center gap-4">
           <li>
-            <NavLink
+            <a
               to="/support"
               className="text-white transition duration-300 ease-in-out hover:text-blue-500"
             >
               Support
-            </NavLink>
+            </a>
           </li>
           <li>
-            <NavLink
+            <a
               to="/about"
               className="text-white transition duration-300 ease-in-out hover:text-blue-500"
             >
               About Us
-            </NavLink>
+            </a>
           </li>
           <li>
-            <NavLink
+            <a
               to="/newsletter"
               className="text-white transition duration-300 ease-in-out hover:text-blue-500"
             >
               Newsletter
-            </NavLink>
+            </a>
           </li>
           <li>
-            <NavLink
+            <a
               to="/contact"
               className="text-white transition duration-300 ease-in-out hover:text-blue-500"
             >
               Contact
-            </NavLink>
+            </a>
           </li>
         </ul>
       </div>
