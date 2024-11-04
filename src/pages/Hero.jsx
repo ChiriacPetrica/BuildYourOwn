@@ -2,7 +2,7 @@ import HeroImg from "../assets/hero.jpg";
 
 const Hero = () => {
   return (
-    <div className="mx-auto flex items-center justify-between gap-16">
+    <section className="mx-auto flex items-center justify-between gap-16 pb-24">
       <div className="flex-1 text-white">
         <h1 className="mb-2 mt-0 bg-gradient-to-r from-blue-500 to-pink-500 bg-clip-text text-6xl font-bold leading-tight text-transparent">
           Build Your Own
@@ -33,9 +33,8 @@ const Hero = () => {
           alt="Build Your Own"
           className="h-[600px] w-[400px]"
         />
-      
       </div>
-    </div>
+    </section>
   );
 };
 
