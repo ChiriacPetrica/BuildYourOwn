@@ -35,7 +35,7 @@ const Newsletter = () => {
   };
 
   return (
-    <section id="newsletter" className="pb-24 text-cyan-50">
+    <section id="newsletter" className="text-cyan-50">
       <div className="mx-auto max-w-7xl space-y-8 rounded-xl bg-cyan-950 p-8 text-center">
         <div className="text-center">
           <h2 className="text-4xl font-bold uppercase">Join BYO </h2>
@@ -60,7 +60,7 @@ const Newsletter = () => {
             onChange={(e) => setLastName(e.target.value)}
           />
           <input
-            type="text"
+            type="email"
             placeholder="Email"
             className="rounded-full p-4"
             value={email}
