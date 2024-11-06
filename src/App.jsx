@@ -1,25 +1,17 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-
+import { Route, BrowserRouter, Routes } from "react-router-dom";
+import LandingPage from "./ui/LandingPage";
 import PageNotFound from "./pages/PageNotFound";
-import AppLayout from "./ui/AppLayout";
-import Support from "./pages/Support";
-import About from "./pages/About";
+import Dashboard from "./pages/Dashboard";
 
 const App = () => {
   return (
-    <>
-      <BrowserRouter>
-        <Routes>
-          <Route element={<AppLayout />}>
-            <Route index element={<Navigate replace to="dashboard" />} />
-            <Route path="/dashboard" element={<div>Dashboard</div>} />
-            <Route path="/support" element={<Support />} />
-            <Route path="/about" element={<About />} />
-          </Route>
-          <Route path="*" element={<PageNotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="*" element={<PageNotFound />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 
