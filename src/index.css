@@ -9,3 +9,11 @@
     @apply scroll-smooth;
   }
 }
+
+.active {
+  @apply bg-slate-900 text-slate-50;
+}
+
+.active svg {
+  @apply fill-blue-500;
+}
