@@ -1,9 +1,32 @@
-import { Outlet, NavLink } from "react-router-dom";
 import Logo from "../assets/logo.png";
-import { FaHome } from "react-icons/fa";
-import { FaUser } from "react-icons/fa6";
 
-const Dashbboard = () => {
+import { Outlet, NavLink, useNavigate } from "react-router-dom";
+import { FaHome, FaUser } from "react-icons/fa";
+import { supabase } from "../supabase/supabaseClient";
+import { useEffect, useState } from "react";
+
+const Dashboard = () => {
+  const navigate = useNavigate();
+
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    const fetchCurrentUser = async () => {
+      const { data, error } = await supabase.auth.getUser();
+      if (error) {
+        navigate("/");
+      } else {
+        setUser(data.user);
+      }
+    };
+
+    fetchCurrentUser();
+  }, []);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    navigate("/");
+  };
+
   return (
     <div className="grid h-screen grid-cols-[auto_1fr_auto] bg-slate-800 text-xl text-white">
       <aside className="flex flex-col gap-6 border-r border-slate-700 px-8 py-12">
@@ -38,21 +61,19 @@ const Dashbboard = () => {
           <Outlet />
         </div>
       </main>
-      <div className="border-l border-slate-700 px-8 py-12">
-        <aside className="flex flex-col gap-4 px-8 py-12">
-          <h2 className="text-2xl font-semibold">Account</h2>
-          <div className="flex flex-col gap-2">
-            <p className="text-sm font-medium">Username</p>
-            <p className="text-slate-500">user123</p>
-          </div>
-          <div className="flex flex-col gap-2">
-            <p className="text-sm font-medium">Password</p>
-            <p className="text-slate-500">********</p>
-          </div>
-        </aside>
+      <div className="space-y-4 border-l border-slate-700 px-8 py-12">
+        <h1>{user?.user_metadata?.display_name}</h1>
+        <p>{user?.email}</p>
+
+        <button
+          onClick={handleLogout}
+          className="rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-700"
+        >
+          Logout
+        </button>
       </div>
     </div>
   );
 };
 
-export default Dashbboard;
+export default Dashboard;

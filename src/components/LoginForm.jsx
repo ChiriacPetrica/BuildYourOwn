@@ -1,46 +1,43 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import useFetchUsers from "../hooks/useFetchUsers";
+import { supabase } from "../supabase/supabaseClient";
 
 const LoginForm = () => {
-  const { users, loading, error } = useFetchUsers();
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loginError, setLoginError] = useState("");
+  const [loginError, setLoginError] = useState(null);
+
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
-    if (loading || error) return;
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
 
-    const user = users.find(
-      (user) => user.username === username && user.password === password,
-    );
-
-    if (user) {
-      navigate("/dashboard");
+    if (error) {
+      setLoginError(error.message);
     } else {
-      setLoginError("Invalid username or password");
+      navigate("/dashboard");
     }
   };
+
   return (
     <>
       {loginError && <p className="mb-4 text-red-500">{loginError}</p>}
-      {error && (
-        <p className="mb-4 text-red-500">Error loading users: {error}</p>
-      )}
       <form className="space-y-4" onSubmit={handleLogin}>
         <h2 className="text-center text-2xl font-semibold">Login</h2>
         <div className="mb-4">
-          <label htmlFor="username" className="block text-gray-700">
-            Username
+          <label htmlFor="email" className="block text-gray-700">
+            Email
           </label>
           <input
-            type="text"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            type="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             className="w-full rounded-lg border px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
             required
           />

@@ -1,29 +1,95 @@
+import { useState } from "react";
+import { supabase } from "../supabase/supabaseClient";
+import { useNavigate } from "react-router-dom";
 
 const RegisterForm = () => {
-    return (
-      <form className="space-y-4">
-        <h2 className="text-2xl font-semibold text-center">Register</h2>
-        <input 
-          type="text" 
-          placeholder="Full Name" 
-          className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-600" 
-        />
-        <input 
-          type="email" 
-          placeholder="Email" 
-          className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-600" 
-        />
-        <input 
-          type="password" 
-          placeholder="Password" 
-          className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-600" 
-        />
-        <button type="submit" className="w-full p-2 bg-blue-600 text-white rounded-md">
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [registerError, setRegisterError] = useState(null);
+
+  const navigate = useNavigate();
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+    });
+
+    // Updating display_name propriety
+    const user = data?.user;
+
+    if (user) {
+      await supabase.auth.updateUser({
+        data: {
+          display_name: username,
+        },
+      });
+    }
+
+    if (error) {
+      setRegisterError(error.message);
+    } else {
+      navigate("/dashboard");
+    }
+  };
+
+  return (
+    <>
+      {registerError && <p className="mb-4 text-red-500">{registerError}</p>}
+      <form className="space-y-4" onSubmit={handleRegister}>
+        <h2 className="text-center text-2xl font-semibold">Register</h2>
+        <div className="mb-4">
+          <label htmlFor="username" className="block text-gray-700">
+            Username
+          </label>
+          <input
+            id="username"
+            type="text"
+            placeholder="Full Name"
+            className="w-full rounded-md border p-2 focus:border-blue-600 focus:outline-none"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+        </div>
+        <div>
+          <label htmlFor="email" className="block text-gray-700">
+            Email
+          </label>
+          <input
+            id="email"
+            type="email"
+            placeholder="Email"
+            className="w-full rounded-md border p-2 focus:border-blue-600 focus:outline-none"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        <div>
+          <label htmlFor="password" className="block text-gray-700">
+            Password
+          </label>
+
+          <input
+            id="password"
+            type="password"
+            placeholder="Password"
+            className="w-full rounded-md border p-2 focus:border-blue-600 focus:outline-none"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <button
+          type="submit"
+          className="w-full rounded-md bg-blue-600 p-2 text-white"
+        >
           Register
         </button>
       </form>
-    );
-  };
-  
-  export default RegisterForm;
-  
+    </>
+  );
+};
+
+export default RegisterForm;
