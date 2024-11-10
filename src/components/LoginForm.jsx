@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "../supabase/supabaseClient";
+import { useAuth } from "../context/AuthContext";
 
 const LoginForm = () => {
+  const { login } = useAuth();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState(null);
@@ -12,15 +14,11 @@ const LoginForm = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-
-    if (error) {
-      setLoginError(error.message);
-    } else {
+    try {
+      await login(email, password);
       navigate("/dashboard");
+    } catch (error) {
+      setLoginError(error.message);
     }
   };
 

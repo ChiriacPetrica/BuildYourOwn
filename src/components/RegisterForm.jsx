@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { supabase } from "../supabase/supabaseClient";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const RegisterForm = () => {
+  const { signUp } = useAuth();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -13,26 +15,11 @@ const RegisterForm = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
 
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-    });
-
-    // Updating display_name propriety
-    const user = data?.user;
-
-    if (user) {
-      await supabase.auth.updateUser({
-        data: {
-          display_name: username,
-        },
-      });
-    }
-
-    if (error) {
-      setRegisterError(error.message);
-    } else {
+    try {
+      await signUp(email, password, username);
       navigate("/dashboard");
+    } catch (error) {
+      setRegisterError(error.message);
     }
   };
 

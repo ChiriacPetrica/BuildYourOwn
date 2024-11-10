@@ -2,28 +2,15 @@ import Logo from "../assets/logo.png";
 
 import { Outlet, NavLink, useNavigate } from "react-router-dom";
 import { FaHome, FaUser } from "react-icons/fa";
-import { supabase } from "../supabase/supabaseClient";
-import { useEffect, useState } from "react";
+
+import { useAuth } from "../context/AuthContext";
 
 const Dashboard = () => {
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
 
-  const [user, setUser] = useState(null);
-  useEffect(() => {
-    const fetchCurrentUser = async () => {
-      const { data, error } = await supabase.auth.getUser();
-      if (error) {
-        navigate("/");
-      } else {
-        setUser(data.user);
-      }
-    };
-
-    fetchCurrentUser();
-  }, []);
-
   const handleLogout = async () => {
-    await supabase.auth.signOut();
+    await logout();
     navigate("/");
   };
 
