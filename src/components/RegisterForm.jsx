@@ -14,17 +14,18 @@ const RegisterForm = ({ setModalType }) => {
   const handleRegister = async (e) => {
     e.preventDefault();
 
-    try {
-      toast.promise(signUp(email, password, username), {
+    toast
+      .promise(signUp(email, password, username), {
         loading: "Creating your account...",
         success: "Your account has been created! Please login.",
-        error: "There was an error creating your account.",
+        error: (error) => error.message,
+      })
+      .then((success) => {
+        if (success) setModalType("login");
+      })
+      .catch((error) => {
+        setRegisterError(error.message);
       });
-
-      setModalType("login");
-    } catch (error) {
-      setRegisterError(error.message);
-    }
   };
 
   return (
