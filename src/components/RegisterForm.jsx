@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
-const RegisterForm = () => {
+const RegisterForm = ({ setModalType }) => {
   const { signUp } = useAuth();
 
   const [username, setUsername] = useState("");
@@ -10,14 +11,21 @@ const RegisterForm = () => {
   const [email, setEmail] = useState("");
   const [registerError, setRegisterError] = useState(null);
 
-  const navigate = useNavigate();
-
   const handleRegister = async (e) => {
     e.preventDefault();
 
     try {
       await signUp(email, password, username);
-      navigate("/dashboard");
+      toast.loading("Creating your account...", {
+        duration: 2000,
+        icon: "⌛",
+      });
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      toast("Your account has been created! Please login.", {
+        duration: 3000,
+        icon: "✅",
+      });
+      setModalType("login");
     } catch (error) {
       setRegisterError(error.message);
     }
@@ -25,6 +33,7 @@ const RegisterForm = () => {
 
   return (
     <>
+      <Toaster position="bottom-right" reverseOrder={false} gutter={8} />
       {registerError && <p className="mb-4 text-red-500">{registerError}</p>}
       <form className="space-y-4" onSubmit={handleRegister}>
         <h2 className="text-center text-2xl font-semibold">Register</h2>

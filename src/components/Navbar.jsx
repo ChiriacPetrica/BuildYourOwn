@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState } from 'react';
+import { useState } from "react";
 import Logo from "../assets/logo.png";
 import Button from "./Button";
 import Modal from "./Modal";
@@ -8,7 +8,7 @@ import RegisterForm from "./RegisterForm";
 
 const Navbar = () => {
   const [modalOpen, setModalOpen] = useState(false);
-  const [modalType, setModalType] = useState(''); // 'login' or 'register'
+  const [modalType, setModalType] = useState(""); // 'login' or 'register'
 
   const openModal = (type) => {
     setModalType(type);
@@ -17,7 +17,7 @@ const Navbar = () => {
 
   const closeModal = () => {
     setModalOpen(false);
-    setModalType('');
+    setModalType("");
   };
   return (
     <nav className="px-4 transition duration-300 ease-in-out">
@@ -66,15 +66,26 @@ const Navbar = () => {
             </a>
           </li>
         </ul>
-        <div className="flex gap-4 " > 
-          <Button variant="full" onClick={()=>openModal('login')} >Log In</Button>
-          <Button variant="light" onClick={()=>openModal('register')} >Register</Button>
+        <div className="flex gap-4">
+          <Button variant="full" onClick={() => openModal("login")}>
+            Log In
+          </Button>
+          <Button variant="light" onClick={() => openModal("register")}>
+            Register
+          </Button>
         </div>
         {modalOpen && (
-        <Modal onClose={closeModal}>
-          {modalType === 'login' ? <LoginForm /> : <RegisterForm />}
-        </Modal>
-      )}
+          <Modal onClose={closeModal}>
+            {modalType === "login" ? (
+              <LoginForm />
+            ) : (
+              <RegisterForm
+                setModalOpen={setModalOpen}
+                setModalType={setModalType}
+              />
+            )}
+          </Modal>
+        )}
       </div>
     </nav>
   );
