@@ -15,16 +15,12 @@ const RegisterForm = ({ setModalType }) => {
     e.preventDefault();
 
     try {
-      await signUp(email, password, username);
-      toast.loading("Creating your account...", {
-        duration: 2000,
-        icon: "⌛",
+      toast.promise(signUp(email, password, username), {
+        loading: "Creating your account...",
+        success: "Your account has been created! Please login.",
+        error: "There was an error creating your account.",
       });
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-      toast("Your account has been created! Please login.", {
-        duration: 3000,
-        icon: "✅",
-      });
+
       setModalType("login");
     } catch (error) {
       setRegisterError(error.message);
