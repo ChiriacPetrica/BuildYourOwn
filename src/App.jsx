@@ -4,6 +4,9 @@ import LandingPage from "./ui/LandingPage";
 import PageNotFound from "./pages/PageNotFound";
 import Dashboard from "./pages/Dashboard";
 import Start from "./pages/Start";
+import Roadmaps from "./pages/Roadmaps";
+import Roadmap from "./pages/Roadmap";
+import { RiH1 } from "react-icons/ri";
 
 const App = () => {
   return (
@@ -14,9 +17,12 @@ const App = () => {
         <Route path="/dashboard" element={<Dashboard />}>
           <Route index element={<Navigate to="start" />} />
           <Route path="start" element={<Start />} />
-          <Route path="roadmap1" element={<h1>Roadmap 1</h1>} />
-          <Route path="users" element={<h1>Users</h1>} />
+          <Route path="roadmaps" element={<Roadmaps />} />
+          <Route path="roadmaps/:id" element={<Roadmap />} />
+          <Route path="resources" element={<h1>Resources</h1>} />
+          <Route path="community" element={<h1>Community</h1>} />
         </Route>
+
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>

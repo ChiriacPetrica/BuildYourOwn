@@ -13,8 +13,16 @@ export const AuthProvider = ({ children }) => {
       email,
       password,
     });
+
     if (error) throw error;
-    setUser(data.user);
+
+    const { data: profileData } = await supabase
+      .from("profiles")
+      .select()
+      .eq("id", data.user.id)
+      .single();
+
+    setUser(profileData);
     return data.user;
   };
 
@@ -24,7 +32,13 @@ export const AuthProvider = ({ children }) => {
       email,
       password,
     });
-    await supabase.auth.updateUser({ data: { display_name: username } });
+
+    await supabase
+      .from("profiles")
+      .update({ username: username })
+      .eq("id", data.user.id)
+      .select();
+
     if (error) throw error;
     return data.user;
   };

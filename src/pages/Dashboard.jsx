@@ -1,7 +1,8 @@
 import Logo from "../assets/logo.png";
 
 import { Outlet, NavLink, useNavigate } from "react-router-dom";
-import { FaHome, FaUser } from "react-icons/fa";
+import { FaHome, FaMap, FaLightbulb } from "react-icons/fa";
+import { FaPeopleGroup } from "react-icons/fa6";
 
 import { useAuth } from "../context/AuthContext";
 
@@ -46,10 +47,28 @@ const Dashboard = () => {
             <li>
               <NavLink
                 className="flex items-center gap-2 rounded-md px-4 py-2 text-slate-400"
-                to={"/dashboard/users"}
+                to={"/dashboard/roadmaps"}
               >
-                <FaUser />
-                <span>Users</span>
+                <FaMap />
+                <span>Roadmaps</span>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                className="flex items-center gap-2 rounded-md px-4 py-2 text-slate-400"
+                to={"/dashboard/resources"}
+              >
+                <FaLightbulb />
+                <span>Resources</span>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                className="flex items-center gap-2 rounded-md px-4 py-2 text-slate-400"
+                to={"/dashboard/community"}
+              >
+                <FaPeopleGroup />
+                <span>Community</span>
               </NavLink>
             </li>
           </ul>
