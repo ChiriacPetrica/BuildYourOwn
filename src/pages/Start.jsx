@@ -1,9 +1,9 @@
 import { useAuth } from "../context/AuthContext";
 
 const Start = () => {
-  const { user } = useAuth();
+  const { profile } = useAuth();
 
-  return <div>Welcome to dashboard, {user.username}</div>;
+  return <div>Welcome to dashboard, {profile?.username}</div>;
 };
 
 export default Start;

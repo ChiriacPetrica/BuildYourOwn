@@ -7,13 +7,22 @@ import Start from "./pages/Start";
 import Roadmaps from "./pages/Roadmaps";
 import Roadmap from "./pages/Roadmap";
 
+import ProtectedRoute from "./pages/ProtectedRoute";
+
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LandingPage />} />
 
-        <Route path="/dashboard" element={<Dashboard />}>
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        >
           <Route index element={<Navigate to="start" />} />
           <Route path="start" element={<Start />} />
           <Route path="roadmaps" element={<Roadmaps />} />

@@ -5,6 +5,7 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
 
   // Function to handle login with email and password
@@ -15,14 +16,6 @@ export const AuthProvider = ({ children }) => {
     });
 
     if (error) throw error;
-
-    const { data: profileData } = await supabase
-      .from("profiles")
-      .select()
-      .eq("id", data.user.id)
-      .single();
-
-    setUser(profileData);
     return data.user;
   };
 
@@ -50,20 +43,54 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
   };
 
+  const fetchUserProfile = async (userId) => {
+    const { data, error } = await supabase
+      .from("profiles")
+      .select()
+      .eq("id", userId)
+      .single();
+
+    if (error) {
+      console.error("Error fetching user profile:", error.message);
+      return null;
+    }
+
+    return data;
+  };
+
   // Function to get the current user
   const fetchUser = async () => {
     const { data } = await supabase.auth.getSession();
-    setUser(data.session?.user ?? null);
+    const sessionUser = data.session?.user ?? null;
+
+    if (sessionUser) {
+      setUser(sessionUser);
+
+      // Fetch user profile
+      const profileData = await fetchUserProfile(sessionUser.id);
+      setProfile(profileData);
+    } else {
+      setUser(null);
+      setProfile(null);
+    }
   };
 
-  // Listen to auth state changes
   useEffect(() => {
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((event, session) => {
-      setUser(session?.user ?? null);
+      const sessionUser = session?.user ?? null;
+      setUser(sessionUser);
+
+      // If the sessionUser exists, fetch profile data
+      if (sessionUser) {
+        fetchUserProfile(sessionUser.id).then(setProfile);
+      } else {
+        setProfile(null);
+      }
     });
 
+    // Fetch user session and profile on initial load
     fetchUser().finally(() => setLoading(false));
 
     return () => {
@@ -77,6 +104,7 @@ export const AuthProvider = ({ children }) => {
     login,
     signUp,
     logout,
+    profile,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

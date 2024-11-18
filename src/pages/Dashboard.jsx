@@ -15,18 +15,6 @@ const Dashboard = () => {
     navigate("/");
   };
 
-  if (!user) {
-    setTimeout(() => navigate("/"), 3000);
-    return (
-      <div className="flex h-screen items-center justify-center">
-        <p>
-          You must be logged in to access this page. Redirecting to login
-          page...
-        </p>
-      </div>
-    );
-  }
-
   return (
     <div className="grid h-screen grid-cols-[auto_1fr_auto] bg-slate-800 text-xl text-white">
       <aside className="flex flex-col gap-6 border-r border-slate-700 px-8 py-12">
