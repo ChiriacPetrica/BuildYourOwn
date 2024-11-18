@@ -6,7 +6,6 @@ import Dashboard from "./pages/Dashboard";
 import Start from "./pages/Start";
 import Roadmaps from "./pages/Roadmaps";
 import Roadmap from "./pages/Roadmap";
-import { RiH1 } from "react-icons/ri";
 
 const App = () => {
   return (

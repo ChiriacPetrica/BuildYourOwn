@@ -33,13 +33,14 @@ export const AuthProvider = ({ children }) => {
       password,
     });
 
+    if (error) throw error;
+
     await supabase
       .from("profiles")
       .update({ username: username })
       .eq("id", data.user.id)
       .select();
 
-    if (error) throw error;
     return data.user;
   };
 
