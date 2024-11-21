@@ -6,15 +6,18 @@ import Dashboard from "./pages/Dashboard";
 import Start from "./pages/Start";
 import Roadmaps from "./pages/Roadmaps";
 import Roadmap from "./pages/Roadmap";
+import { RoadmapProvider } from "./context/RoadmapsContext";
 
 import ProtectedRoute from "./pages/ProtectedRoute";
 
 const App = () => {
   return (
-    <BrowserRouter>
+    <RoadmapProvider>
+
+    <BrowserRouter >
       <Routes>
         <Route path="/" element={<LandingPage />} />
-
+        {/* <RoadmapProvider></RoadmapProvider> */}
         <Route
           path="/dashboard"
           element={
@@ -22,8 +25,8 @@ const App = () => {
               <Dashboard />
             </ProtectedRoute>
           }
-        >
-          <Route index element={<Navigate to="start" />} />
+          >
+          <Route index element={<Navigate to="roadmaps" />} />
           <Route path="start" element={<Start />} />
           <Route path="roadmaps" element={<Roadmaps />} />
           <Route path="roadmaps/:id" element={<Roadmap />} />
@@ -34,6 +37,7 @@ const App = () => {
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>
+          </RoadmapProvider>
   );
 };
 
