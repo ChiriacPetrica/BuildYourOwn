@@ -9,30 +9,27 @@ import Button from "../components/Button";
 import { useRoadmapsContext } from "../context/RoadmapsContext";
 
 const Dashboard = () => {
-  const {calculateTotalXP} = useRoadmapsContext();
+  const { calculateTotalXP } = useRoadmapsContext();
   const { profile, logout } = useAuth();
   const navigate = useNavigate();
 
-const total = calculateTotalXP();
+  const total = calculateTotalXP();
 
-const level = Math.floor(total / 2000);
+  const level = Math.floor(total / 2000);
 
-const rest = Math.floor(total % 2000);
+  const rest = Math.floor(total % 2000);
 
-  const percent = (rest * 100 /2000)
-
-
+  const percent = (rest * 100) / 2000;
 
   const handleLogout = async () => {
     await logout();
     navigate("/");
   };
   // console.log(total);
-  
 
   return (
     <div className="grid h-screen grid-cols-[auto_1fr] bg-slate-800 text-xl text-white">
-      <aside className="flex flex-col gap-6 border-r border-slate-700 px-8 pt-0 pb-12">
+      <aside className="flex flex-col gap-6 border-r border-slate-700 px-8 pb-12 pt-0">
         <div>
           <img src={Logo} alt="Build Your Own Logo" className="h-48" />
         </div>
@@ -76,17 +73,18 @@ const rest = Math.floor(total % 2000);
             </li>
           </ul>
         </nav> */}
-        <div className="flex flex-col justify-between items-center gap-4" >
+        <div className="flex flex-col items-center justify-between gap-4">
           {/* <pre>{user}</pre> */}
-          <h3>{profile.username}</h3>
+          <h3>{profile?.username}</h3>
           <h4>Points: {total || 0}</h4>
           <h4>Level {level}</h4>
-          <progress value={rest} max="2000" ></progress><span>{percent}%</span>
-          <div className="max-w-40 rounded-full overflow-hidden"> 
-          <img src={profile.avatar_url} alt="" className="block w-full" />
+          <progress value={rest} max="2000"></progress>
+          <span>{percent}%</span>
+          <div className="max-w-40 overflow-hidden rounded-full">
+            <img src={profile?.avatar_url} alt="" className="block w-full" />
           </div>
-          <Button variant="full" onClick={handleLogout} >
-          Logout
+          <Button variant="full" onClick={handleLogout}>
+            Logout
           </Button>
         </div>
       </aside>

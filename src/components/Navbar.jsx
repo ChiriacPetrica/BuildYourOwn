@@ -77,12 +77,9 @@ const Navbar = () => {
         {modalOpen && (
           <Modal onClose={closeModal}>
             {modalType === "login" ? (
-              <LoginForm />
+              <LoginForm setModalType={setModalType} />
             ) : (
-              <RegisterForm
-                setModalOpen={setModalOpen}
-                setModalType={setModalType}
-              />
+              <RegisterForm setModalType={setModalType} />
             )}
           </Modal>
         )}

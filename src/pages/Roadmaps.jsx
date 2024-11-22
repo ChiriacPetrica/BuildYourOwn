@@ -2,13 +2,11 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 const Roadmaps = () => {
-  const {profile} = useAuth();
-
-
+  const { profile } = useAuth();
 
   return (
     <div className="max-w-7xl space-y-2 text-lg sm:px-6 lg:px-8">
-      <h3>Welcome, {profile.username}</h3>
+      <h3>Welcome, {profile?.username}</h3>
       <h1 className="text-3xl font-bold">Explore our business roadmaps</h1>
       <p>
         We have a wide range of roadmaps to help you on your entrepreneurial

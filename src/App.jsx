@@ -13,31 +13,30 @@ import ProtectedRoute from "./pages/ProtectedRoute";
 const App = () => {
   return (
     <RoadmapProvider>
-
-    <BrowserRouter >
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        {/* <RoadmapProvider></RoadmapProvider> */}
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          }
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          {/* <RoadmapProvider></RoadmapProvider> */}
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
           >
-          <Route index element={<Navigate to="roadmaps" />} />
-          <Route path="start" element={<Start />} />
-          <Route path="roadmaps" element={<Roadmaps />} />
-          <Route path="roadmaps/:id" element={<Roadmap />} />
-          <Route path="resources" element={<h1>Resources</h1>} />
-          <Route path="community" element={<h1>Community</h1>} />
-        </Route>
+            <Route index element={<Navigate to="roadmaps" />} />
+            <Route path="start" element={<Start />} />
+            <Route path="roadmaps" element={<Roadmaps />} />
+            <Route path="roadmaps/:id" element={<Roadmap />} />
+            <Route path="resources" element={<h1>Resources</h1>} />
+            <Route path="community" element={<h1>Community</h1>} />
+          </Route>
 
-        <Route path="*" element={<PageNotFound />} />
-      </Routes>
-    </BrowserRouter>
-          </RoadmapProvider>
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </RoadmapProvider>
   );
 };
 
