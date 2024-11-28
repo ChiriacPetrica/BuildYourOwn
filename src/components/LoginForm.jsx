@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
-const LoginForm = () => {
+const LoginForm = ({ setModalType }) => {
   const { login } = useAuth();
 
   const [email, setEmail] = useState("");
@@ -60,6 +60,14 @@ const LoginForm = () => {
         >
           Log In
         </button>
+        <div className="text-center">
+          <p
+            className="cursor-pointer text-blue-500 hover:text-blue-700 hover:underline"
+            onClick={() => setModalType("resetPassword")}
+          >
+            Forgot Password?
+          </p>
+        </div>
       </form>
     </>
   );

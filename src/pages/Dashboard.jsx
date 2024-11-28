@@ -7,7 +7,7 @@ import { FaPeopleGroup } from "react-icons/fa6";
 import { useAuth } from "../context/AuthContext";
 
 const Dashboard = () => {
-  const { user, logout } = useAuth();
+  const { profile, logout } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -68,8 +68,9 @@ const Dashboard = () => {
         </div>
       </main>
       <div className="space-y-4 border-l border-slate-700 px-8 py-12">
-        <h1>{user?.user_metadata?.display_name}</h1>
-        <p>{user?.email}</p>
+        <h1>{profile?.username}</h1>
+        <p>{profile?.total_xp}</p>
+        <img src={profile?.avatar_url} className="h-48" />
 
         <button
           onClick={handleLogout}

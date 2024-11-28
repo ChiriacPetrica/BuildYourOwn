@@ -5,6 +5,7 @@ import Button from "./Button";
 import Modal from "./Modal";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
+import ResetPassword from "./ResetPassword";
 
 const Navbar = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -77,12 +78,13 @@ const Navbar = () => {
         {modalOpen && (
           <Modal onClose={closeModal}>
             {modalType === "login" ? (
-              <LoginForm />
+              <LoginForm setModalType={setModalType} />
+            ) : modalType === "register" ? (
+              <RegisterForm setModalType={setModalType} />
+            ) : modalType === "resetPassword" ? (
+              <ResetPassword setModalType={setModalType} />
             ) : (
-              <RegisterForm
-                setModalOpen={setModalOpen}
-                setModalType={setModalType}
-              />
+              <></>
             )}
           </Modal>
         )}
