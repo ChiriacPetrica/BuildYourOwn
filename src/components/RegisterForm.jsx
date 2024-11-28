@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { Toaster } from "react-hot-toast";
 import toast from "react-hot-toast";
+import AuthMessage from "./AuthMessage";
 
 const RegisterForm = ({ setModalType }) => {
   const { signUp } = useAuth();
@@ -76,10 +77,15 @@ const RegisterForm = ({ setModalType }) => {
         </div>
         <button
           type="submit"
-          className="w-full rounded-md bg-blue-600 p-2 text-white"
+          className="w-full rounded-md bg-blue-600 p-2 text-white hover:bg-blue-700"
         >
           Register
         </button>
+        <AuthMessage
+          message={"Already have an account?"}
+          actionText={"Login"}
+          onActionClick={() => setModalType("login")}
+        />
       </form>
     </>
   );

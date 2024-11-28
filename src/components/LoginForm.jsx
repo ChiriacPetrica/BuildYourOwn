@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import AuthMessage from "./AuthMessage";
 
 const LoginForm = ({ setModalType }) => {
   const { login } = useAuth();
@@ -56,7 +57,7 @@ const LoginForm = ({ setModalType }) => {
         </div>
         <button
           type="submit"
-          className="w-full rounded-md bg-blue-600 p-2 text-white"
+          className="w-full rounded-md bg-blue-600 p-2 text-white hover:bg-blue-700"
         >
           Log In
         </button>
@@ -68,6 +69,11 @@ const LoginForm = ({ setModalType }) => {
             Forgot Password?
           </p>
         </div>
+        <AuthMessage
+          message="Don't have an account?"
+          actionText="Register"
+          onActionClick={() => setModalType("register")}
+        />
       </form>
     </>
   );
