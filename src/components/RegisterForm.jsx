@@ -77,7 +77,7 @@ const RegisterForm = ({ setModalType }) => {
         </div>
         <button
           type="submit"
-          className="w-full rounded-md bg-blue-600 p-2 text-white hover:bg-blue-700"
+          className="w-full rounded-md bg-blue-600 p-2 text-white transition-all duration-300 hover:bg-blue-800"
         >
           Register
         </button>

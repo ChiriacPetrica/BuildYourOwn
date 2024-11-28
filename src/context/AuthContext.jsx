@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }) => {
     await supabase
       .from("profiles")
       .update({ username: username })
-      .eq("id", data.user.id)
+      .eq("user_id", data.user.id)
       .select();
 
     return data.user;
@@ -47,7 +47,7 @@ export const AuthProvider = ({ children }) => {
     const { data, error } = await supabase
       .from("profiles")
       .select()
-      .eq("id", userId)
+      .eq("user_id", userId)
       .single();
 
     if (error) {

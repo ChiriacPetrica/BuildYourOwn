@@ -7,6 +7,8 @@ import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 import ResetPassword from "./ResetPassword";
 
+import { HashLink } from "react-router-hash-link";
+
 const Navbar = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalType, setModalType] = useState(""); // 'login' or 'register'
@@ -35,36 +37,40 @@ const Navbar = () => {
 
         <ul className="flex items-center gap-4">
           <li>
-            <a
-              href="#about"
+            <HashLink
+              smooth
+              to="#about"
               className="text-white transition duration-300 ease-in-out hover:text-blue-500"
             >
               About Us
-            </a>
+            </HashLink>
           </li>
           <li>
-            <a
-              href="#features"
+            <HashLink
+              smooth
+              to="#features"
               className="text-white transition duration-300 ease-in-out hover:text-blue-500"
             >
               Features
-            </a>
+            </HashLink>
           </li>
           <li>
-            <a
-              href="#newsletter"
+            <HashLink
+              smooth
+              to="#newsletter"
               className="text-white transition duration-300 ease-in-out hover:text-blue-500"
             >
               Newsletter
-            </a>
+            </HashLink>
           </li>
           <li>
-            <a
-              href="#footer"
+            <HashLink
+              smooth
+              to="#footer"
               className="text-white transition duration-300 ease-in-out hover:text-blue-500"
             >
               Contact
-            </a>
+            </HashLink>
           </li>
         </ul>
         <div className="flex gap-4">

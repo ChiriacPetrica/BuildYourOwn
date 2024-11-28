@@ -28,8 +28,8 @@ const Dashboard = () => {
   // console.log(total);
 
   return (
-    <div className="grid h-screen grid-cols-[auto_1fr] bg-slate-800 text-xl text-white">
-      <aside className="flex flex-col gap-6 border-r border-slate-700 px-8 pb-12 pt-0">
+    <div className="grid h-screen grid-cols-[auto_1fr] overflow-hidden bg-slate-800 text-xl text-white">
+      <aside className="overlflow-auto flex flex-col gap-6 border-r border-slate-700 px-8 pb-12 pt-0">
         <div>
           <img src={Logo} alt="Build Your Own Logo" className="h-48" />
         </div>

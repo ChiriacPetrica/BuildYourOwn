@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { supabase } from "../supabase/supabaseClient";
 
-const ResetPassword = () => {
+const ResetPassword = ({ setModalType }) => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState(null);
 
@@ -11,7 +11,7 @@ const ResetPassword = () => {
     try {
       let { data, error } = await supabase.auth.resetPasswordForEmail(email, {
         redirectTo:
-          "https://chiriacpetrica.github.io/BuildYourOwn/reset-password",
+          "https://chiriacpetrica.github.io/BuildYourOwn/#/reset-password",
       });
       console.log(data);
       if (error) throw error;
@@ -41,10 +41,18 @@ const ResetPassword = () => {
 
         <button
           type="submit"
-          className="w-full rounded-md bg-blue-600 p-2 text-white"
+          className="w-full rounded-md bg-blue-600 p-2 text-white transition-all duration-300 hover:bg-blue-800"
         >
           Reset Password
         </button>
+        <div className="text-center">
+          <p
+            className="cursor-pointer text-blue-500 transition-all duration-300 hover:text-blue-700 hover:underline"
+            onClick={() => setModalType("login")}
+          >
+            Back to login
+          </p>
+        </div>
       </form>
     </>
   );

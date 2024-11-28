@@ -1,4 +1,4 @@
-import { Route, BrowserRouter, Routes, Navigate } from "react-router-dom";
+import { Route, Routes, Navigate, HashRouter } from "react-router-dom";
 
 import LandingPage from "./ui/LandingPage";
 import PageNotFound from "./pages/PageNotFound";
@@ -14,7 +14,7 @@ import ResetPasswordPage from "./pages/ResetPasswordPage";
 const App = () => {
   return (
     <RoadmapProvider>
-      <BrowserRouter basename="/BuildYourOwn">
+      <HashRouter>
         <Routes>
           <Route path="/" element={<LandingPage />} />
 
@@ -33,11 +33,11 @@ const App = () => {
             <Route path="resources" element={<h1>Resources</h1>} />
             <Route path="community" element={<h1>Community</h1>} />
           </Route>
-          <Route path="reset-password" element={<ResetPasswordPage />} />
+          {/* <Route path="reset-password" element={<ResetPasswordPage />} /> */}
 
           <Route path="*" element={<PageNotFound />} />
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </RoadmapProvider>
   );
 };
