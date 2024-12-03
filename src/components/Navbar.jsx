@@ -6,7 +6,6 @@ import Modal from "./Modal";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 import ResetPassword from "./ResetPassword";
-
 import { HashLink } from "react-router-hash-link";
 
 const Navbar = () => {

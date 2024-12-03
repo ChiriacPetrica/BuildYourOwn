@@ -33,7 +33,7 @@ const App = () => {
             <Route path="resources" element={<h1>Resources</h1>} />
             <Route path="community" element={<h1>Community</h1>} />
           </Route>
-          {/* <Route path="reset-password" element={<ResetPasswordPage />} /> */}
+          <Route path="reset-password" element={<ResetPasswordPage />} />
 
           <Route path="*" element={<PageNotFound />} />
         </Routes>

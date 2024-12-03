@@ -1,70 +1,111 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { supabase } from "../supabase/supabaseClient";
+import { useNavigate } from "react-router-dom";
+const ResetPasswordPage = () => {
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(false);
+  const [successMessage, setSuccessMessage] = useState(false);
 
-function ResetPasswordPage() {
-  const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const navigate = useNavigate();
+  // useEffect(() => {
+  //   supabase.auth.onAuthStateChange((event, session) => {
+  //     if (event === "PASSWORD_RECOVERY") {
+  //       console.log("Password recovery session:", session);
+  //     }
+  //   });
+  // }, []);
 
   useEffect(() => {
-    const { data: authListener } = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        if (event === "PASSWORD_RECOVERY" && session) {
-          setIsAuthenticated(true);
-          setMessage("Session restored. You can now update your password.");
-        }
-      },
-    );
+    const url = window.location.href;
+    const urlSearchParams = url.split("#")[2];
+    const urlParams = new URLSearchParams(urlSearchParams);
+    const accessToken = urlParams.get("access_token");
+    const refreshToken = urlParams.get("refresh_token");
 
-    return () => {
-      authListener.unsubscribe();
-    };
+    if (accessToken) {
+      supabase.auth
+        .setSession({
+          access_token: accessToken,
+          refresh_token: refreshToken,
+        })
+        .then(({ error }) => {
+          if (error) {
+            console.error("Error setting session:", error.message);
+          } else {
+            console.log("Session set successfully!");
+          }
+        });
+    } else {
+      navigate("/");
+    }
   }, []);
 
-  const handlePasswordUpdate = async () => {
-    if (!isAuthenticated) {
-      setMessage(
-        "No valid session found. Please request a new password reset link.",
-      );
+  const navigate = useNavigate();
+
+  const handlePasswordReset = async () => {
+    setErrorMessage(false);
+    setSuccessMessage(false);
+
+    if (newPassword !== confirmPassword) {
+      setErrorMessage("Passwords do not match. Please try again.");
       return;
     }
-
-    if (!password) {
-      setMessage("Password cannot be empty.");
-      return;
-    }
-
-    const { error } = await supabase.auth.updateUser({ password });
+    const { error } = await supabase.auth.updateUser({ password: newPassword });
 
     if (error) {
-      setMessage("Error updating password: " + error.message);
+      setErrorMessage(error.message);
     } else {
-      setMessage("Password updated successfully! Redirecting to login...");
-      setTimeout(() => navigate("/login"), 3000);
+      setSuccessMessage("Password reset successfully! You can now log in");
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
     }
+    setLoading(false);
   };
 
   return (
-    <div>
-      <h2>Reset Your Password</h2>
-      {message && <p>{message}</p>}
-      {isAuthenticated ? (
-        <>
+    <div className="flex h-screen flex-col items-center justify-center bg-blue-300">
+      <div className="flex w-96 flex-col space-y-3 rounded-lg bg-white p-6">
+        <div className="text-center">
+          {errorMessage && <p className="mb-4 text-red-500">{errorMessage}</p>}
+          {successMessage && (
+            <p className="mb-4 text-green-500">{successMessage}</p>
+          )}
+        </div>
+        <h2 className="text-center text-2xl font-semibold">Reset Password</h2>
+        <div className="space-y-2">
+          <label htmlFor="password">Password</label>
           <input
             type="password"
-            placeholder="Enter new password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            placeholder="New Password"
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
+            className="w-full rounded-md border border-gray-400 p-2"
+            id="password"
           />
-          <button onClick={handlePasswordUpdate}>Update Password</button>
-        </>
-      ) : (
-        <p>Validating session...</p>
-      )}
+        </div>
+        <div className="space-y-2">
+          <label htmlFor="confirmPassword">Confirm password</label>
+          <input
+            type="password"
+            placeholder="New Password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            className="w-full rounded-md border border-gray-400 p-2"
+            id="confirmPassword"
+          />
+        </div>
+        <button
+          onClick={handlePasswordReset}
+          disabled={loading}
+          className="rounded-lg bg-blue-500 px-4 py-2 text-white transition-all duration-300 hover:bg-blue-700"
+        >
+          {loading ? "Reseting..." : "Reset Password"}
+        </button>
+      </div>
     </div>
   );
-}
+};
 
 export default ResetPasswordPage;

@@ -3,26 +3,29 @@ import { supabase } from "../supabase/supabaseClient";
 
 const ResetPassword = ({ setModalType }) => {
   const [email, setEmail] = useState("");
+  const [successMessage, setSuccessMessage] = useState(null);
   const [error, setError] = useState(null);
 
   const handleResetPassword = async (e) => {
     e.preventDefault();
 
-    try {
-      let { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo:
-          "https://chiriacpetrica.github.io/BuildYourOwn/#/reset-password",
-      });
-      console.log(data);
-      if (error) throw error;
-    } catch (error) {
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo:
+        "https://chiriacpetrica.github.io/BuildYourOwn/#/reset-password",
+    });
+    if (error) {
       setError(error);
+    } else {
+      setSuccessMessage("Password reset email sent successfully.");
     }
   };
 
   return (
     <>
       {error && <p className="mb-4 text-red-500">{error.message}</p>}
+      {successMessage && (
+        <p className="mb-4 text-green-500">{successMessage}</p>
+      )}
       <form className="space-y-4" onSubmit={handleResetPassword}>
         <h2 className="text-center text-2xl font-semibold">Reset Password</h2>
         <div className="mb-4">

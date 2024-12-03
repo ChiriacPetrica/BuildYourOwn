@@ -4,7 +4,7 @@ const Hero = () => {
   return (
     <section
       id="about"
-      className="mx-auto flex max-w-7xl xl:px-0 px-6 items-center justify-between gap-16"
+      className="mx-auto flex max-w-7xl items-center justify-between gap-16 px-6 xl:px-0"
     >
       <div className="flex-1 text-white">
         <h1 className="mb-2 mt-0 bg-gradient-to-r from-blue-500 to-pink-500 bg-clip-text text-6xl font-bold leading-tight text-transparent">
@@ -23,10 +23,7 @@ const Hero = () => {
           step of the startup process, from initial idea generation to launch
           and beyond.
         </p>
-        <a
-          href="/main"
-          className="rounded-full bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
-        >
+        <a className="rounded-full bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700">
           Get Started
         </a>
       </div>
