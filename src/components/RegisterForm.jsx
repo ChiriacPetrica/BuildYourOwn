@@ -10,7 +10,6 @@ const RegisterForm = ({ setModalType }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const [registerError, setRegisterError] = useState(null);
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -23,16 +22,11 @@ const RegisterForm = ({ setModalType }) => {
       })
       .then((success) => {
         if (success) setModalType("login");
-      })
-      .catch((error) => {
-        setRegisterError(error.message);
       });
   };
 
   return (
     <>
-      <Toaster position="bottom-right" reverseOrder={false} gutter={8} />
-      {registerError && <p className="mb-4 text-red-500">{registerError}</p>}
       <form className="space-y-4" onSubmit={handleRegister}>
         <h2 className="text-center text-2xl font-semibold">Register</h2>
         <div className="mb-4">
